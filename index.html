@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mada Livra - Inscription Commerçant</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet" 
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<header class="welcome-header">
+
+<h1 id="greeting">
+Bonjour !
+</h1>
+
+<p>
+Simplifiez vos livraisons à Madagascar dès aujourd'hui.
+</p>
+
+
+<button id="loginBtn" class="login">
+Connexion
+</button>
+
+
+</header>
+
+
+
+
+
+<main class="form-card">
+
+
+<!-- INSCRIPTION -->
+
+<div id="registerBox">
+
+<h2>
+Créer un compte commerçant
+</h2>
+
+
+<form id="merchantForm">
+
+
+<div class="input-group">
+<label>Nom du commerce</label>
+<input id="merchantName" type="text" required>
+</div>
+
+
+
+<div class="input-group">
+<label>Téléphone</label>
+<input id="merchantPhone" type="tel" required>
+</div>
+
+
+
+<div class="input-group">
+<label>Email</label>
+<input id="merchantEmail" type="email" required>
+</div>
+
+
+
+<div class="input-group">
+<label>Mot de passe</label>
+<input id="merchantPassword" type="password" required>
+</div>
+
+
+
+<div class="input-group">
+<label>Adresse (optionnel)</label>
+<input id="merchantAddress" type="text">
+</div>
+
+
+
+<button type="submit">
+Créer mon compte
+</button>
+
+
+</form>
+
+</div>
+
+
+
+
+
+
+<!-- CONNEXION -->
+
+<div id="loginBox" style="display:none;">
+
+
+<h2>
+Connexion commerçant
+</h2>
+
+
+<form id="loginForm">
+
+
+<div class="input-group">
+
+<label>Email</label>
+
+<input 
+id="loginEmail"
+type="email"
+required>
+
+</div>
+
+
+
+
+<div class="input-group">
+
+<label>Mot de passe</label>
+
+<input 
+id="loginPassword"
+type="password"
+required>
+
+</div>
+
+
+
+<button type="submit">
+
+Se connecter
+
+</button>
+
+
+</form>
+
+
+</div>
+
+
+
+</main>
+
+
+
+
+
+<section class="map-section">
+
+
+<h3>
+Zones de livraison Madagascar
+</h3>
+
+
+<div id="map"></div>
+
+
+</section>
+
+
+
+
+</div>
+
+
+
+
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+
+<script type="module" src="script.js"></script>
+
+
+</body>
+
+</html>
