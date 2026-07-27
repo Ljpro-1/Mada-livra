@@ -61,6 +61,8 @@ const app = initializeApp(firebaseConfig);
 
 
 const auth = getAuth(app);
+auth.setPersistence("none");
+
 
 
 const database = getDatabase(app);
@@ -345,20 +347,11 @@ alert(
 
 onAuthStateChanged(auth,(user)=>{
 
-
 if(user){
 
-localStorage.setItem(
-"madaLivraDevice",
-user.uid
-);
-
-
-window.location.href="commercant.html";
-
+console.log("Utilisateur déjà connecté :", user.uid);
 
 }
-
 
 });
 const params = new URLSearchParams(
