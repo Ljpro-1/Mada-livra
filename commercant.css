@@ -1,0 +1,438 @@
+/* =========================
+   RESET
+========================= */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:"Segoe UI", Arial, sans-serif;
+}
+
+
+/* =========================
+   BODY
+========================= */
+
+body{
+
+    background:#f1f5f9;
+    min-height:100vh;
+    padding:20px;
+
+    color:#1e293b;
+
+}
+
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard{
+
+    max-width:1000px;
+    margin:auto;
+
+}
+
+
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+
+    background:linear-gradient(
+        135deg,
+        #007A3D,
+        #16a34a
+    );
+
+    color:white;
+
+    padding:35px 25px;
+
+    border-radius:25px;
+
+    text-align:center;
+
+    box-shadow:
+    0 15px 35px rgba(0,0,0,0.15);
+
+}
+
+
+header h1{
+
+    font-size:32px;
+
+    margin-bottom:8px;
+
+}
+
+
+header p{
+
+    opacity:.9;
+
+    font-size:16px;
+
+}
+
+
+
+
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+
+    background:white;
+
+    margin-top:25px;
+
+    padding:30px;
+
+    border-radius:22px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.08);
+
+}
+
+
+
+.card h2{
+
+    margin-bottom:20px;
+
+    color:#0f172a;
+
+    font-size:22px;
+
+}
+
+
+
+
+
+/* =========================
+   INPUT
+========================= */
+
+
+input{
+
+    width:100%;
+
+    padding:15px;
+
+    margin-bottom:15px;
+
+    border-radius:12px;
+
+    border:1px solid #cbd5e1;
+
+    font-size:16px;
+
+    outline:none;
+
+    transition:.3s;
+
+}
+
+
+
+input:focus{
+
+    border-color:#007A3D;
+
+    box-shadow:
+    0 0 0 3px rgba(0,122,61,.15);
+
+}
+
+
+
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+
+button{
+
+    width:100%;
+
+    padding:16px;
+
+    margin-top:12px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#007A3D;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+
+
+button:hover{
+
+    background:#005f2f;
+
+    transform:translateY(-2px);
+
+}
+
+
+
+button:active{
+
+    transform:scale(.98);
+
+}
+
+
+
+/* bouton partage */
+
+#shareBtn{
+
+    background:#2563eb;
+
+}
+
+
+#shareBtn:hover{
+
+    background:#1d4ed8;
+
+}
+
+
+
+
+
+/* =========================
+   PARTAGE
+========================= */
+
+
+#shareBox{
+
+    margin-top:20px;
+
+    padding:15px;
+
+    background:#f8fafc;
+
+    border-radius:15px;
+
+    border:1px dashed #94a3b8;
+
+}
+
+
+
+.hidden{
+
+    display:none;
+
+}
+
+
+
+
+
+
+/* =========================
+   TABLE CLIENTS
+========================= */
+
+
+table{
+
+    width:100%;
+
+    margin-top:20px;
+
+    border-collapse:collapse;
+
+    overflow:hidden;
+
+    border-radius:15px;
+
+}
+
+
+
+thead{
+
+    background:#007A3D;
+
+    color:white;
+
+}
+
+
+
+th{
+
+    padding:15px;
+
+    text-align:left;
+
+    font-size:15px;
+
+}
+
+
+
+td{
+
+    padding:15px;
+
+    border-bottom:1px solid #e2e8f0;
+
+}
+
+
+
+tbody tr{
+
+    transition:.2s;
+
+}
+
+
+
+tbody tr:hover{
+
+    background:#f8fafc;
+
+}
+
+
+
+
+
+/* lien navigation */
+
+a{
+
+    display:inline-block;
+
+    padding:8px 12px;
+
+    border-radius:8px;
+
+    background:#dcfce7;
+
+    color:#166534;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+}
+
+
+
+a:hover{
+
+    background:#bbf7d0;
+
+}
+
+
+
+
+
+
+
+/* =========================
+   MOBILE
+========================= */
+
+
+@media(max-width:600px){
+
+
+body{
+
+    padding:12px;
+
+}
+
+
+
+.card{
+
+    padding:20px;
+
+}
+
+
+
+header h1{
+
+    font-size:25px;
+
+}
+
+
+
+table{
+
+    font-size:14px;
+
+}
+
+
+
+th,td{
+
+    padding:10px 8px;
+
+}
+
+
+
+}
+.waiting{
+
+background:#f59e0b;
+cursor:default;
+
+}
+
+
+.navigate{
+
+display:inline-block;
+padding:10px 15px;
+background:#16a34a;
+color:white;
+border-radius:10px;
+text-decoration:none;
+font-weight:bold;
+
+}
