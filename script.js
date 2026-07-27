@@ -7,9 +7,10 @@ createUserWithEmailAndPassword,
 signInWithEmailAndPassword,
 onAuthStateChanged,
 setPersistence,
-inMemoryPersistence
+browserLocalPersistence
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
 
 import {
 getDatabase,
@@ -21,7 +22,9 @@ update
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 
-// Firebase
+// =======================
+// FIREBASE
+// =======================
 
 const firebaseConfig = {
 
@@ -44,41 +47,39 @@ appId:"1:173715112364:web:05838c15e6a41acb6f7a09"
 
 const app = initializeApp(firebaseConfig);
 
-
 const auth = getAuth(app);
 
-setPersistence(auth,inMemoryPersistence);
-
+setPersistence(auth,browserLocalPersistence);
 
 const database = getDatabase(app);
 
 
 
 
-
-// Salutation
+// =======================
+// SALUTATION
+// =======================
 
 function greeting(){
 
-let h = new Date().getHours();
+const text=document.getElementById("greeting");
 
-let text = document.getElementById("greeting");
+if(!text) return;
 
 
-if(text){
+const h=new Date().getHours();
 
-if(h < 12){
+
+if(h<12){
 
 text.textContent="Manahoana, Bonjour !";
 
 }
-
-else if(h < 18){
+else if(h<18){
 
 text.textContent="Salama, Bon après-midi !";
 
 }
-
 else{
 
 text.textContent="Tonga soa, Bonsoir !";
@@ -87,42 +88,38 @@ text.textContent="Tonga soa, Bonsoir !";
 
 }
 
-}
-
-
 greeting();
 
 
 
 
 
-
-// Carte
+// =======================
+// CARTE
+// =======================
 
 function initMap(){
 
-if(document.getElementById("map")){
+const mapElement=document.getElementById("map");
 
 
-const map = L.map("map")
+if(!mapElement) return;
+
+
+const map=L.map("map")
 .setView([-18.8792,47.5079],5);
 
 
 L.tileLayer(
-
 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-
 ).addTo(map);
 
 
+
 L.marker([-18.8792,47.5079])
-
 .addTo(map)
-
 .bindPopup("Antananarivo");
 
-
-}
 
 }
 
@@ -133,11 +130,12 @@ initMap();
 
 
 
+// =======================
+// CREATION COMPTE
+// =======================
 
-// CREATION COMPTE COMMERCANT
 
-
-const merchantForm =
+const merchantForm=
 document.getElementById("merchantForm");
 
 
@@ -151,34 +149,39 @@ e.preventDefault();
 
 
 
-const name =
+const name=
 document.getElementById("merchantName").value;
 
 
-const phone =
+const phone=
 document.getElementById("merchantPhone").value;
 
 
-const email =
+const email=
 document.getElementById("merchantEmail").value;
 
 
-const password =
+const password=
 document.getElementById("merchantPassword").value;
 
 
-const address =
+const address=
 document.getElementById("merchantAddress").value;
 
 
 
-const btn =
+const btn=
 document.getElementById("submitBtn");
 
+
+
+if(btn){
 
 btn.disabled=true;
 
 btn.textContent="Création...";
+
+}
 
 
 
@@ -187,24 +190,19 @@ try{
 
 const userCredential =
 await createUserWithEmailAndPassword(
-
 auth,
 email,
 password
-
 );
 
 
 
-const uid =
-userCredential.user.uid;
+const uid=userCredential.user.uid;
 
 
 
 await set(
-
 ref(database,"merchants/"+uid),
-
 {
 
 name:name,
@@ -229,7 +227,6 @@ alert("Compte créé avec succès");
 window.location.href="commercant.html";
 
 
-
 }
 
 catch(error){
@@ -238,9 +235,14 @@ catch(error){
 alert(error.message);
 
 
+
+if(btn){
+
 btn.disabled=false;
 
 btn.textContent="Créer mon compte";
+
+}
 
 
 }
@@ -256,10 +258,12 @@ btn.textContent="Créer mon compte";
 
 
 
-// AFFICHER FORMULAIRE CONNEXION
+// =======================
+// AFFICHER CONNEXION
+// =======================
 
 
-const loginBtn =
+const loginBtn=
 document.getElementById("loginBtn");
 
 
@@ -285,11 +289,12 @@ document.getElementById("loginBox").style.display="block";
 
 
 
-
+// =======================
 // CONNEXION
+// =======================
 
 
-const loginForm =
+const loginForm=
 document.getElementById("loginForm");
 
 
@@ -303,11 +308,11 @@ e.preventDefault();
 
 
 
-const email =
+const email=
 document.getElementById("loginEmail").value;
 
 
-const password =
+const password=
 document.getElementById("loginPassword").value;
 
 
@@ -315,12 +320,17 @@ document.getElementById("loginPassword").value;
 try{
 
 
-await signInWithEmailAndPassword(
+await setPersistence(
+auth,
+browserLocalPersistence
+);
 
+
+
+await signInWithEmailAndPassword(
 auth,
 email,
 password
-
 );
 
 
@@ -332,6 +342,7 @@ window.location.href="commercant.html";
 
 
 }
+
 
 catch(error){
 
@@ -352,16 +363,20 @@ alert("Email ou mot de passe incorrect");
 
 
 
+// =======================
+// ETAT CONNEXION
+// =======================
 
-
-// Etat connexion
 
 onAuthStateChanged(auth,(user)=>{
 
 
 if(user){
 
-console.log("Connecté :",user.uid);
+console.log(
+"Utilisateur connecté :",
+user.uid
+);
 
 }
 
@@ -375,15 +390,15 @@ console.log("Connecté :",user.uid);
 
 
 
-
-
-// ============================
+// =======================
 // LOCALISATION CLIENT
-// ============================
+// =======================
 
 
 const params =
-new URLSearchParams(window.location.search);
+new URLSearchParams(
+window.location.search
+);
 
 
 const clientID =
@@ -397,8 +412,7 @@ if(clientID){
 (async()=>{
 
 
-
-const container =
+const container=
 document.querySelector(".container");
 
 
@@ -410,7 +424,7 @@ container.style.display="none";
 
 
 
-const clientPage =
+const clientPage=
 document.getElementById("clientLocationPage");
 
 
@@ -422,30 +436,29 @@ clientPage.classList.remove("hidden");
 
 
 
-const gpsButton =
+const gpsButton=
 document.getElementById("gpsButton");
 
 
-const gpsStatus =
+const gpsStatus=
 document.getElementById("gpsStatus");
 
 
-const clientNameLocation =
+const clientNameLocation=
 document.getElementById("clientNameLocation");
 
 
-const clientProductLocation =
+const clientProductLocation=
 document.getElementById("clientProductLocation");
 
 
 
-
-const clientRef =
+const clientRef=
 ref(database,"clients/"+clientID);
 
 
 
-const snap =
+const snap=
 await get(clientRef);
 
 
@@ -466,19 +479,16 @@ return;
 
 
 
-const client =
-snap.val();
+const client=snap.val();
 
 
 
-clientNameLocation.textContent =
-client.name || "";
+clientNameLocation.textContent=
+client.name || "-";
 
 
-clientProductLocation.textContent =
-client.product || "";
-
-
+clientProductLocation.textContent=
+client.product || "-";
 
 
 
@@ -492,37 +502,32 @@ navigator.geolocation.getCurrentPosition(
 async(position)=>{
 
 
-
-const lat =
+const lat=
 position.coords.latitude;
 
 
-const lng =
+const lng=
 position.coords.longitude;
 
 
-const accuracy =
+const accuracy=
 position.coords.accuracy;
 
 
 
-const mapsLink =
+const mapsLink=
 
 "https://www.google.com/maps/dir/?api=1&destination="
 +
-lat
-+
-","
-+
+lat+
+","+
 lng;
 
 
 
 
 await update(
-
 clientRef,
-
 {
 
 latitude:lat,
@@ -555,7 +560,6 @@ Précision : ${Math.round(accuracy)} mètres
 gpsButton.style.display="none";
 
 
-
 },
 
 
@@ -567,7 +571,6 @@ gpsStatus.textContent=
 
 
 },
-
 
 {
 
@@ -583,9 +586,7 @@ maximumAge:0
 );
 
 
-
 };
-
 
 
 
