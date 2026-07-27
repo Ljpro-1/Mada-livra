@@ -181,9 +181,14 @@ locationBtn.onclick = ()=>{
 
 
   const url =
-"https://ljpro-1.github.io/Mada-livra/client-location.html?id=" 
-+ currentClientID;
 
+window.location.origin
++
+window.location.pathname.replace("commercant.html","")
++
+"?client="
++
+currentClientID;
 
   locationLink.value=url;
 
