@@ -179,9 +179,15 @@ if(locationBtn){  locationBtn.onclick = ()=>{
 
 window.location.origin
 +
-"/index.html?client="
+window.location.pathname.substring(
+0,
+window.location.pathname.lastIndexOf("/")
+)
++
+"/?client="
 +
 currentClientID;
+  
   locationLink.value=url;
 
 
