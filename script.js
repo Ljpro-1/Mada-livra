@@ -1,40 +1,27 @@
-import { initializeApp }
+import { initializeApp } 
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import {
-signInWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 import {
-
 getAuth,
-
 createUserWithEmailAndPassword,
-
-onAuthStateChanged
-
+signInWithEmailAndPassword,
+onAuthStateChanged,
+setPersistence,
+inMemoryPersistence
 }
-
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-
 import {
-
 getDatabase,
-
 ref,
 get,
-
-
 set,
 update
-
 }
-
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 
-
-
+// Firebase
 
 const firebaseConfig = {
 
@@ -55,17 +42,16 @@ appId:"1:173715112364:web:05838c15e6a41acb6f7a09"
 };
 
 
-
-
 const app = initializeApp(firebaseConfig);
 
 
 const auth = getAuth(app);
-auth.setPersistence("none");
 
+setPersistence(auth,inMemoryPersistence);
 
 
 const database = getDatabase(app);
+
 
 
 
@@ -74,18 +60,20 @@ const database = getDatabase(app);
 
 function greeting(){
 
-let h=new Date().getHours();
+let h = new Date().getHours();
 
-let text=document.getElementById("greeting");
+let text = document.getElementById("greeting");
 
 
-if(h<12){
+if(text){
+
+if(h < 12){
 
 text.textContent="Manahoana, Bonjour !";
 
 }
 
-else if(h<18){
+else if(h < 18){
 
 text.textContent="Salama, Bon après-midi !";
 
@@ -99,6 +87,7 @@ text.textContent="Tonga soa, Bonsoir !";
 
 }
 
+}
 
 
 greeting();
@@ -112,7 +101,10 @@ greeting();
 
 function initMap(){
 
-const map=L.map("map")
+if(document.getElementById("map")){
+
+
+const map = L.map("map")
 .setView([-18.8792,47.5079],5);
 
 
@@ -123,14 +115,14 @@ L.tileLayer(
 ).addTo(map);
 
 
-
 L.marker([-18.8792,47.5079])
 
 .addTo(map)
 
-.bindPopup(
-"Antananarivo"
-);
+.bindPopup("Antananarivo");
+
+
+}
 
 }
 
@@ -142,39 +134,45 @@ initMap();
 
 
 
-// Création compte
+// CREATION COMPTE COMMERCANT
 
-document
-.getElementById("merchantForm")
-.addEventListener("submit",async(e)=>{
+
+const merchantForm =
+document.getElementById("merchantForm");
+
+
+if(merchantForm){
+
+
+merchantForm.addEventListener("submit",async(e)=>{
 
 
 e.preventDefault();
 
 
 
-const name=
-merchantName.value;
+const name =
+document.getElementById("merchantName").value;
 
 
-const phone=
-merchantPhone.value;
+const phone =
+document.getElementById("merchantPhone").value;
 
 
-const email=
-merchantEmail.value;
+const email =
+document.getElementById("merchantEmail").value;
 
 
-const password=
-merchantPassword.value;
+const password =
+document.getElementById("merchantPassword").value;
 
 
-const address=
-merchantAddress.value;
+const address =
+document.getElementById("merchantAddress").value;
 
 
 
-const btn=
+const btn =
 document.getElementById("submitBtn");
 
 
@@ -191,9 +189,7 @@ const userCredential =
 await createUserWithEmailAndPassword(
 
 auth,
-
 email,
-
 password
 
 );
@@ -205,13 +201,11 @@ userCredential.user.uid;
 
 
 
-
 await set(
 
 ref(database,"merchants/"+uid),
 
 {
-
 
 name:name,
 
@@ -221,15 +215,11 @@ email:email,
 
 address:address,
 
-createdAt:
-new Date().toISOString()
-
+createdAt:new Date().toISOString()
 
 }
 
-
 );
-
 
 
 
@@ -259,30 +249,54 @@ btn.textContent="Créer mon compte";
 });
 
 
+}
 
 
 
 
 
-// Connexion
 
-document
-.getElementById("loginBtn")
-.onclick=()=>{
+// AFFICHER FORMULAIRE CONNEXION
 
 
-document.getElementById("registerBox")
-.style.display="none";
+const loginBtn =
+document.getElementById("loginBtn");
 
 
-document.getElementById("loginBox")
-.style.display="block";
+if(loginBtn){
+
+
+loginBtn.onclick=()=>{
+
+
+document.getElementById("registerBox").style.display="none";
+
+
+document.getElementById("loginBox").style.display="block";
 
 
 };
-document
-.getElementById("loginForm")
-.addEventListener("submit", async(e)=>{
+
+
+}
+
+
+
+
+
+
+
+// CONNEXION
+
+
+const loginForm =
+document.getElementById("loginForm");
+
+
+if(loginForm){
+
+
+loginForm.addEventListener("submit",async(e)=>{
 
 
 e.preventDefault();
@@ -293,10 +307,8 @@ const email =
 document.getElementById("loginEmail").value;
 
 
-
 const password =
 document.getElementById("loginPassword").value;
-
 
 
 
@@ -306,9 +318,7 @@ try{
 await signInWithEmailAndPassword(
 
 auth,
-
 email,
-
 password
 
 );
@@ -318,10 +328,7 @@ password
 alert("Connexion réussie !");
 
 
-
-window.location.href=
-"commercant.html";
-
+window.location.href="commercant.html";
 
 
 }
@@ -329,9 +336,7 @@ window.location.href=
 catch(error){
 
 
-alert(
-"Email ou mot de passe incorrect"
-);
+alert("Email ou mot de passe incorrect");
 
 
 }
@@ -340,30 +345,81 @@ alert(
 });
 
 
+}
 
 
 
-// Si déjà connecté
+
+
+
+
+
+// Etat connexion
 
 onAuthStateChanged(auth,(user)=>{
 
+
 if(user){
 
-console.log("Utilisateur déjà connecté :", user.uid);
+console.log("Connecté :",user.uid);
 
 }
 
+
 });
-const params = new URLSearchParams(
-window.location.search
-);
 
 
-const clientID = params.get("client");
+
+
+
+
+
+
+
+
+// ============================
+// LOCALISATION CLIENT
+// ============================
+
+
+const params =
+new URLSearchParams(window.location.search);
+
+
+const clientID =
+params.get("client");
+
+
+
+if(clientID){
+
+
+(async()=>{
+
+
+
+const container =
+document.querySelector(".container");
+
+
+if(container){
+
+container.style.display="none";
+
+}
+
 
 
 const clientPage =
 document.getElementById("clientLocationPage");
+
+
+if(clientPage){
+
+clientPage.classList.remove("hidden");
+
+}
+
 
 
 const gpsButton =
@@ -383,68 +439,58 @@ document.getElementById("clientProductLocation");
 
 
 
-if(clientID){
 
-
-    // cacher la page commerçant/connexion
-
-    document.querySelector(".container").style.display="none";
-
-
-    // afficher localisation client
-
-    clientPage.classList.remove("hidden");
+const clientRef =
+ref(database,"clients/"+clientID);
 
 
 
-    const clientRef =
-    ref(db,"clients/"+clientID);
+const snap =
+await get(clientRef);
 
 
 
-    const snap =
-    await get(clientRef);
+if(!snap.exists()){
+
+
+gpsStatus.textContent="❌ Lien invalide";
+
+
+gpsButton.disabled=true;
+
+
+return;
+
+
+}
 
 
 
-    if(!snap.exists()){
-
-
-        gpsStatus.textContent =
-        "❌ Lien invalide";
-
-
-        gpsButton.disabled=true;
-
-
-    }
-    else{
-
-
-        const client =
-        snap.val();
-
-
-        clientNameLocation.textContent =
-        client.name;
-
-
-        clientProductLocation.textContent =
-        client.product;
+const client =
+snap.val();
 
 
 
-    }
+clientNameLocation.textContent =
+client.name || "";
+
+
+clientProductLocation.textContent =
+client.product || "";
 
 
 
 
-gpsButton.onclick = ()=>{
+
+
+
+gpsButton.onclick=()=>{
 
 
 navigator.geolocation.getCurrentPosition(
 
 async(position)=>{
+
 
 
 const lat =
@@ -493,13 +539,11 @@ locatedAt:Date.now()
 
 }
 
-
 );
 
 
 
-
-gpsStatus.innerHTML =
+gpsStatus.innerHTML=
 
 `
 ✅ Localisation enregistrée<br>
@@ -515,10 +559,10 @@ gpsButton.style.display="none";
 },
 
 
-(error)=>{
+()=>{
 
 
-gpsStatus.textContent =
+gpsStatus.textContent=
 "❌ Autorisation GPS refusée";
 
 
@@ -536,13 +580,16 @@ maximumAge:0
 }
 
 
-
 );
 
 
 
 };
 
+
+
+
+})();
 
 
 }
