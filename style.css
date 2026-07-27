@@ -1,0 +1,395 @@
+:root {
+    --primary: #007A3D;
+    --primary-dark: #005F2F;
+    --secondary: #E01A22;
+    --dark: #17202A;
+    --text: #475569;
+    --light: #F1F5F9;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --shadow: 0 15px 40px rgba(15, 23, 42, 0.08);
+    --radius: 20px;
+}
+
+
+/* Reset */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    background:
+    linear-gradient(135deg,
+    #f8fafc,
+    #eef7f2);
+
+    color: var(--dark);
+
+    display:flex;
+
+    justify-content:center;
+
+    padding:25px;
+
+}
+
+
+
+/* Conteneur principal */
+
+.container {
+
+    width:100%;
+
+    max-width:520px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:25px;
+
+}
+
+
+
+/* Header */
+
+.welcome-header {
+
+    text-align:center;
+
+    padding:15px;
+
+}
+
+
+
+.welcome-header h1 {
+
+    font-size:2.3rem;
+
+    font-weight:800;
+
+    color:var(--primary);
+
+    letter-spacing:-1px;
+
+    margin-bottom:10px;
+
+}
+
+
+
+.welcome-header p {
+
+    color:var(--text);
+
+    font-size:1rem;
+
+    line-height:1.5;
+
+}
+
+
+
+/* Carte formulaire */
+
+.form-card {
+
+
+    background:rgba(255,255,255,0.95);
+
+    backdrop-filter:blur(10px);
+
+    padding:35px 30px;
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+    border:1px solid rgba(255,255,255,0.8);
+
+    animation:slideUp .5s ease;
+
+}
+
+
+
+@keyframes slideUp {
+
+from {
+
+    opacity:0;
+
+    transform:translateY(20px);
+
+}
+
+to {
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+}
+
+
+
+.form-card h2 {
+
+    text-align:center;
+
+    font-size:1.5rem;
+
+    margin-bottom:25px;
+
+    font-weight:700;
+
+}
+
+
+
+/* Champs */
+
+.input-group {
+
+    margin-bottom:20px;
+
+}
+
+
+
+.input-group label {
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-size:.9rem;
+
+    font-weight:600;
+
+    color:#334155;
+
+}
+
+
+
+.input-group input {
+
+
+    width:100%;
+
+    height:52px;
+
+    padding:0 16px;
+
+
+    border-radius:12px;
+
+    border:2px solid var(--border);
+
+    background:#fff;
+
+    font-size:1rem;
+
+
+    transition:.3s;
+
+}
+
+
+
+.input-group input::placeholder {
+
+    color:#94A3B8;
+
+}
+
+
+
+.input-group input:focus {
+
+    outline:none;
+
+    border-color:var(--primary);
+
+    box-shadow:
+    0 0 0 4px rgba(0,122,61,.12);
+
+}
+
+
+
+/* Bouton */
+
+button {
+
+
+    width:100%;
+
+    height:55px;
+
+
+    border:none;
+
+    border-radius:14px;
+
+
+    background:
+
+    linear-gradient(
+    135deg,
+    var(--primary),
+    #00A651
+    );
+
+
+    color:white;
+
+    font-size:1rem;
+
+    font-weight:700;
+
+
+    cursor:pointer;
+
+
+    box-shadow:
+
+    0 10px 20px rgba(0,122,61,.25);
+
+
+    transition:.3s;
+
+}
+
+
+
+button:hover {
+
+    transform:translateY(-2px);
+
+    background:
+    linear-gradient(
+    135deg,
+    var(--primary-dark),
+    var(--primary)
+    );
+
+}
+
+
+button:active {
+
+    transform:scale(.98);
+
+}
+
+
+
+/* Carte GPS */
+
+.map-section {
+
+
+    background:white;
+
+
+    padding:25px;
+
+
+    border-radius:var(--radius);
+
+
+    box-shadow:var(--shadow);
+
+
+}
+
+
+
+.map-section h3 {
+
+
+    font-size:1.1rem;
+
+
+    margin-bottom:15px;
+
+
+    color:#334155;
+
+
+}
+
+
+
+#map {
+
+
+    height:320px;
+
+
+    width:100%;
+
+
+    border-radius:16px;
+
+
+    overflow:hidden;
+
+
+    box-shadow:
+    inset 0 0 0 1px #e2e8f0;
+
+
+}
+
+
+
+/* Responsive mobile */
+
+@media(max-width:480px){
+
+
+body {
+
+    padding:15px;
+
+}
+
+
+.welcome-header h1 {
+
+    font-size:1.8rem;
+
+}
+
+
+.form-card {
+
+    padding:25px 20px;
+
+}
+
+
+#map {
+
+    height:260px;
+
+}
+
+
+}
