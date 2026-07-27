@@ -85,89 +85,84 @@ const list = document.getElementById("clientList");
 
 // Connexion commerçant
 
-onAuthStateChanged(auth,(user)=>{
-
-
-  if(user){
-
+onAuthStateChanged(auth, (user) => {
+  
+  if (user) {
+    
     merchantUID = user.uid;
-
+    
     console.log("Connecté :", merchantUID);
-
+    
     chargerClients();
-
+    
   }
-  else{
-
-    alert("Vous devez être connecté");
-
+  else {
+    
+    alert("Vous devez vous connecter");
+    
+    window.location.href = "index.html";
+    
   }
-
-
+  
 });
-
-
-
 
 
 
 // Enregistrer client
 
-saveBtn.onclick = async()=>{
-
-
-  if(!merchantUID){
-
-    alert("Compte non connecté");
-
-    return;
-
-  }
-
-
-  const clientRef = push(ref(db,"clients"));
-
-
-  currentClientID = clientRef.key;
-
-
-
-  await set(clientRef,{
-
-    merchantUID:merchantUID,
-
-    name:nameInput.value,
-
-    phone:phoneInput.value,
-
-    product:productInput.value,
-
-    status:"waiting",
-
-    locationLink:"",
-
-    createdAt:Date.now()
-
-  });
-
-
-
-  alert("Client enregistré");
-
-
-};
-
-
-
-
-
-
-
+if (saveBtn) {
+  
+  saveBtn.onclick = async () => {
+    
+    
+    if (!merchantUID) {
+      
+      alert("Compte non connecté");
+      
+      return;
+      
+    }
+    
+    
+    const clientRef = push(ref(db, "clients"));
+    
+    
+    currentClientID = clientRef.key;
+    
+    
+    
+    await set(clientRef, {
+      
+      merchantUID: merchantUID,
+      
+      name: nameInput.value,
+      
+      phone: phoneInput.value,
+      
+      product: productInput.value,
+      
+      status: "waiting",
+      
+      locationLink: "",
+      
+      createdAt: Date.now()
+      
+    });
+    
+    
+    
+    alert("Client enregistré");
+    
+    
+  };
+  
+  
+}
 
 
 // Créer lien localisation
 
-locationBtn.onclick = ()=>{
+if(locationBtn){  locationBtn.onclick = ()=>{
 
 
   if(currentClientID===""){
@@ -184,12 +179,9 @@ locationBtn.onclick = ()=>{
 
 window.location.origin
 +
-window.location.pathname.replace("commercant.html","")
-+
-"?client="
+"/index.html?client="
 +
 currentClientID;
-
   locationLink.value=url;
 
 
@@ -200,7 +192,7 @@ currentClientID;
 
 
 
-
+}
 
 
 
