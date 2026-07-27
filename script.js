@@ -22,8 +22,11 @@ import {
 getDatabase,
 
 ref,
+get,
 
-set
+
+set,
+update
 
 }
 
@@ -358,3 +361,195 @@ window.location.href="commercant.html";
 
 
 });
+const params = new URLSearchParams(
+window.location.search
+);
+
+
+const clientID = params.get("client");
+
+
+const clientPage =
+document.getElementById("clientLocationPage");
+
+
+const gpsButton =
+document.getElementById("gpsButton");
+
+
+const gpsStatus =
+document.getElementById("gpsStatus");
+
+
+const clientNameLocation =
+document.getElementById("clientNameLocation");
+
+
+const clientProductLocation =
+document.getElementById("clientProductLocation");
+
+
+
+if(clientID){
+
+
+    // cacher la page commerçant/connexion
+
+    document.querySelector(".container").style.display="none";
+
+
+    // afficher localisation client
+
+    clientPage.classList.remove("hidden");
+
+
+
+    const clientRef =
+    ref(db,"clients/"+clientID);
+
+
+
+    const snap =
+    await get(clientRef);
+
+
+
+    if(!snap.exists()){
+
+
+        gpsStatus.textContent =
+        "❌ Lien invalide";
+
+
+        gpsButton.disabled=true;
+
+
+    }
+    else{
+
+
+        const client =
+        snap.val();
+
+
+        clientNameLocation.textContent =
+        client.name;
+
+
+        clientProductLocation.textContent =
+        client.product;
+
+
+
+    }
+
+
+
+
+gpsButton.onclick = ()=>{
+
+
+navigator.geolocation.getCurrentPosition(
+
+async(position)=>{
+
+
+const lat =
+position.coords.latitude;
+
+
+const lng =
+position.coords.longitude;
+
+
+const accuracy =
+position.coords.accuracy;
+
+
+
+const mapsLink =
+
+"https://www.google.com/maps/dir/?api=1&destination="
++
+lat
++
+","
++
+lng;
+
+
+
+
+await update(
+
+clientRef,
+
+{
+
+latitude:lat,
+
+longitude:lng,
+
+accuracy:accuracy,
+
+locationLink:mapsLink,
+
+status:"located",
+
+locatedAt:Date.now()
+
+}
+
+
+);
+
+
+
+
+gpsStatus.innerHTML =
+
+`
+✅ Localisation enregistrée<br>
+Précision : ${Math.round(accuracy)} mètres
+`;
+
+
+
+gpsButton.style.display="none";
+
+
+
+},
+
+
+(error)=>{
+
+
+gpsStatus.textContent =
+"❌ Autorisation GPS refusée";
+
+
+},
+
+
+{
+
+enableHighAccuracy:true,
+
+timeout:15000,
+
+maximumAge:0
+
+}
+
+
+
+);
+
+
+
+};
+
+
+
+}
