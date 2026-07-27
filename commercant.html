@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Mada Livra</title>
+    
+    <link rel="stylesheet" href="commercant.css">
+    
+</head>
+
+
+<body>
+    
+    
+    <div class="dashboard">
+        
+        
+        <header>
+            
+            <h1>📍 Mada Livra</h1>
+            
+            <p>Espace commerçant</p>
+            
+        </header>
+        
+        
+        
+        <section class="card">
+            
+            <h2>Nouveau client</h2>
+            
+            
+            <input id="clientName" placeholder="Nom du client">
+            
+            <input id="clientPhone" placeholder="Téléphone">
+            
+            
+            <input id="product" placeholder="Produit">
+            
+            
+            <button id="saveClient">
+            
+                💾 Enregistrer client
+                
+            </button>
+            
+            
+            <button id="requestLocation">
+            
+                📍 Demander localisation
+                
+            </button>
+            
+            
+            
+            <div id="shareBox" class="hidden">
+                
+                
+                <input id="locationLink" readonly>
+                
+                
+                <button id="shareBtn">
+                
+                    Partager le lien
+                    
+                </button>
+                
+                
+            </div>
+            
+            
+            
+        </section>
+        
+        
+        
+        
+        
+        <section class="card">
+            
+            
+            <h2>Liste clients</h2>
+            
+            
+<table>
+
+<thead>
+
+<tr>
+
+<th>Nom</th>
+
+<th>Téléphone</th>
+
+<th>Produit</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="clientList">
+
+</tbody>
+
+
+</table>
+            
+        </section>
+        
+        
+        
+    </div>
+    
+    
+    
+    <script type="module" src="./commercant.js"></script>
+    
+    
+</body>
+
+</html>
